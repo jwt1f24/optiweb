@@ -1,0 +1,13 @@
+{
+    "name": "OptiWeb",
+    "description": "OptiWeb",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+        "tabs"
+    ],
+    "action": {
+        "default-popup": "popup.html",
+        "default-icon": ".png"
+    }
+}
