@@ -1,0 +1,57 @@
+body {
+    width: 300px;
+    padding: 10px;
+    font-family: sans-serif;
+}
+h1 {
+    margin: 0 0 15 0;
+    font-size: 20px;
+    text-align: center;
+}
+.stat-container {
+    background-color: #e2efff;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 0 0 15px 0;
+}
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 6px 0;
+    font-size: 14px;
+}
+.opt-btn {
+    width: 100%;
+    padding: 10px;
+    color: #000000;
+    background-color: #bdffde;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: ease 0.2s;
+}
+.opt-btn:hover {
+    background-color: #7dffbe;
+}
+.log-title {
+    color: #000000;
+    margin: 15px 0 6px 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+.log-container {
+    max-height: 100px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 12px;
+}
+.log-item {
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
