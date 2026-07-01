@@ -1,7 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-    <main>
-        <h1>OptiWeb</h1>
+<html>
+    <head>
+        <title>OptiWeb</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="popup.css"></style>
+    </head>
+    <body>
+        <main>
+            <h1>OptiWeb</h1>
+
+            <!-- statistic display -->
+            <div class="stat-container">
+                <div class="stat-row">
+                    <span>Active Tabs:</span>
+                    <span class="active" id="activeCount">0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Freeze Tabs:</span>
+                    <span class="freeze" id="freezeCount">0</span>
+                </div>
+            </div>
+
+            <button class="opt-btn" id="optBtn">Optimize</button>
+
+            <div class="log-title">Log</div>
+            <div class="log-container" id="tabLog"></div>
+        </main>    
         <script src="popup.js"></script>
-    </main>
+    </body>
 </html>
