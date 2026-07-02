@@ -10,32 +10,49 @@
         <main>
             <h1>OptiWeb</h1>
 
-            <!-- statistic display -->
-            <div class="stat-container">
-                <div class="stat-row">
-                    <span>Memory Usage:</span>
-                    <span id="memUsage">0.0 GB</span>
-                </div>
-                <div class="stat-row">
-                    <span>Memory Available:</span>
-                    <span id="memAvailable">0.0 GB</span>
-                </div>
+            <!-- navbar -->
+            <div class="navbar">
+                <button class="nav-btn" id="dashboardBtn">Dashboard</button>
+                <button class="nav-btn" id="tabListBtn">Tab List</button>
+                <button class="nav-btn" id="settingsBtn">Settings</button>
             </div>
-            <div class="stat-container">
-                <div class="stat-row">
-                    <span>Active Tabs:</span>
-                    <span id="activeCount">0</span>
+            
+            <!-- dashboard section -->
+            <div id="dashboard">
+                <!-- statistic display -->
+                <div class="stat-container">
+                    <div class="stat-row">
+                        <span>Memory Usage:</span>
+                        <span id="memUsage">0.0 GB</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Memory Available:</span>
+                        <span id="memAvailable">0.0 GB</span>
+                    </div>
                 </div>
-                <div class="stat-row">
-                    <span>Freeze Tabs:</span>
-                    <span id="freezeCount">0</span>
+                <div class="stat-container">
+                    <div class="stat-row">
+                        <span>Active Tabs:</span>
+                        <span id="activeCount">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Freeze Tabs:</span>
+                        <span id="freezeCount">0</span>
+                    </div>
                 </div>
+                <!-- button to execute optimization action -->
+                <button class="opt-btn" id="optBtn">Optimize</button>
             </div>
 
-            <button class="opt-btn" id="optBtn">Optimize</button>
+            <!-- tab list section -->
+            <div id="tabList">
+                <h1>Tab List</h1>
+            </div>
 
-            <div class="log-title">Log</div>
-            <div class="log-container" id="tabLog"></div>
+            <!-- settings section -->
+            <div id="settings">
+                <h1>Settings</h1>
+            </div>
         </main>    
         <script src="popup.js"></script>
     </body>
