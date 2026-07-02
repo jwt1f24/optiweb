@@ -37,10 +37,15 @@ async function updateMetrics() {
 // optimize browser by freezing inactive tabs on button click
 const optBtn = document.getElementById("optBtn");
 optBtn.addEventListener("click", async () => {
-    const inactiveTabs = await chrome.tabs.query({ active: false });
+    const inactiveTabs = await chrome.tabs.query({ active: false, discarded: false, audible:false, pinned: false });
     for (const tab of inactiveTabs) {
-        if (tab.id) {
+        if (!tab.id) {
+            continue;
+        }
+        try {
             await chrome.tabs.discard(tab.id);
+        } catch (err) {
+            console.log(`Skipped: ${tab.id}: ${err}`);
         }
     }
     // refresh dashboard to load changes
@@ -49,7 +54,4 @@ optBtn.addEventListener("click", async () => {
 
 // instantiate live view dashboard tab updates
 updateMetrics();
-chrome.tabs.onActivated.addListener(updateMetrics);
-chrome.tabs.onUpdated.addListener(updateMetrics);
-chrome.tabs.onRemoved.addListener(updateMetrics);
 setInterval(updateMetrics, 1000);
