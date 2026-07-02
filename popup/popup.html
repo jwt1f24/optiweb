@@ -4,13 +4,23 @@
         <title>OptiWeb</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="popup.css"></style>
+        <link rel="stylesheet" href="popup.css"/>
     </head>
     <body>
         <main>
             <h1>OptiWeb</h1>
 
             <!-- statistic display -->
+            <div class="stat-container">
+                <div class="stat-row">
+                    <span>Memory Usage:</span>
+                    <span class="active" id="memUsage">0.0 GB</span>
+                </div>
+                <div class="stat-row">
+                    <span>Memory Available:</span>
+                    <span class="freeze" id="memAvailable">0.0 GB</span>
+                </div>
+            </div>
             <div class="stat-container">
                 <div class="stat-row">
                     <span>Active Tabs:</span>
