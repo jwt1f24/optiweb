@@ -4,15 +4,39 @@ body {
     font-family: sans-serif;
 }
 h1 {
-    margin: 0 0 15 0;
-    font-size: 20px;
+    margin: 0 0 15px 0;
+    font-size: 24px;
     text-align: center;
+}
+.navbar {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 12px 0;
+}
+.nav-btn {
+    width: 100%;
+    color: #000000;
+    background-color: #b6d9ff;
+    padding: 5px 8px 5px 8px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: ease 0.2s;
+}
+.nav-btn:hover{
+    background-color: #8fc5ff;
+}
+#dashboard {
+    display: block;
+}
+#tabList, #settings {
+    display: none;
 }
 .stat-container {
     background-color: #e2efff;
     padding: 12px;
     border-radius: 6px;
-    margin: 0 0 15px 0;
+    margin: 0 0 12px 0;
 }
 .stat-row {
     display: flex;
@@ -27,31 +51,10 @@ h1 {
     background-color: #bdffde;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
     font-size: 14px;
+    cursor: pointer;
     transition: ease 0.2s;
 }
 .opt-btn:hover {
     background-color: #7dffbe;
-}
-.log-title {
-    color: #000000;
-    margin: 15px 0 6px 0;
-    font-weight: bold;
-    font-size: 14px;
-}
-.log-container {
-    max-height: 100px;
-    overflow-y: auto;
-    background: #fff;
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 12px;
-}
-.log-item {
-    margin: 0 0 4px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }

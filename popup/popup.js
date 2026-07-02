@@ -1,3 +1,18 @@
+// navbar tab navigation
+const navBtns = document.querySelectorAll(".nav-btn");
+const sections = document.querySelectorAll(".section");
+navBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        sections.forEach(section => {
+            if (section.id === btn.dataset.target) {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        });
+    });
+});
+
 // scan all opened tabs & update dashboard tab counter
 async function updateMetrics() {
     // check for active & sleeping tabs
@@ -5,7 +20,7 @@ async function updateMetrics() {
     let active = 0;
     let freeze = 0;
     
-    tabs.forEach((tab) => {
+    tabs.forEach(tab => {
         if (tab.discarded) { 
             freeze += 1;
         } else {
