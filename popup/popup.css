@@ -17,7 +17,7 @@ h1 {
 .stat-row {
     display: flex;
     justify-content: space-between;
-    margin: 0 0 6px 0;
+    margin: 2px 0 2px 0;
     font-size: 14px;
 }
 .opt-btn {
