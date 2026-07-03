@@ -8,10 +8,10 @@ h1 {
     font-size: 24px;
     text-align: center;
 }
-.navbar {
+.navbar, .theme-bar {
     display: flex;
     justify-content: center;
-    margin: 0 0 12px 0;
+    margin: 0 0 10px 0;
 }
 .nav-btn {
     width: 100%;
@@ -57,4 +57,29 @@ h1 {
 }
 .opt-btn:hover {
     background-color: #7dffbe;
+}
+.theme-label {
+    margin: 6px 0 6px 0;
+}
+.theme-btn {
+    width: 100%;
+    padding: 5px 8px 5px 8px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: ease 0.2s;
+}
+#dark {
+    color: #ffffff;
+    background-color: #5b6a76;
+}
+#light {
+    color: #000000;
+    background-color: #d8ebff;
+}
+#dark:hover {
+    background-color: #424d5d;
+}
+#light:hover {
+    background-color: #c1d5ed;
 }
