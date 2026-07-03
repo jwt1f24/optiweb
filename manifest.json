@@ -1,6 +1,6 @@
 {
     "name": "OptiWeb",
-    "description": "OptiWeb",
+    "description": "A lightweight Chrome extension built with Manifest V3 to optimize system RAM via native tab discarding and provide zero-overhead content filtering.",
     "version": "1.0",
     "manifest_version": 3,
     "permissions": [
