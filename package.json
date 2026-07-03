@@ -1,0 +1,24 @@
+{
+  "name": "optiweb",
+  "version": "1.0.0",
+  "description": "A lightweight Chrome extension built with Manifest V3 to optimize system RAM via native tab discarding and provide zero-overhead content filtering.",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwt1f24/optiweb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jwt1f24/optiweb/issues"
+  },
+  "homepage": "https://github.com/jwt1f24/optiweb#readme",
+  "devDependencies": {
+    "@types/chrome": "^0.2.1"
+  }
+}
