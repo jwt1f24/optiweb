@@ -1,4 +1,4 @@
-// navbar tab navigation
+// dyanmic navbar tab navigation
 const navBtns = document.querySelectorAll(".nav-btn");
 const sections = document.querySelectorAll(".section");
 navBtns.forEach(btn => {
@@ -10,6 +10,11 @@ navBtns.forEach(btn => {
                 section.style.display = "none";
             }
         });
+
+        // display tab list function
+        if (btn.dataset.target === "tabList") {
+            displayList();
+        }
     });
 });
 
@@ -52,15 +57,20 @@ async function updateMetrics() {
 // optimize browser by freezing inactive tabs on button click
 const optBtn = document.getElementById("optBtn");
 optBtn.addEventListener("click", async () => {
+    const saved = await chrome.storage.local.get({ whitelist: [] });
+    const whitelist = saved.whitelist;
     const inactiveTabs = await chrome.tabs.query({ active: false, discarded: false, audible:false, pinned: false });
     for (const tab of inactiveTabs) {
         if (!tab.id) {
             continue;
         }
         try {
-            await chrome.tabs.discard(tab.id);
+            const domain = new URL(tab.url).hostname;
+            if (!whitelist.includes(domain)) {
+                await chrome.tabs.discard(tab.id);
+            }
         } catch (err) {
-            console.log(`Skipped: ${tab.id}: ${err}`);
+            console.error(`Failed to discard tab ID: ${tab.id}`, err);
         }
     }
     // refresh dashboard to load changes
@@ -70,3 +80,57 @@ optBtn.addEventListener("click", async () => {
 // instantiate live view dashboard tab updates
 updateMetrics();
 setInterval(updateMetrics, 1000);
+
+// display all opened tabs on a list
+async function displayList() {
+    const tabs = await chrome.tabs.query({});
+    const filtered = tabs.filter(tab => !tab.url.startsWith("chrome://"));
+    const saved = await chrome.storage.local.get({ whitelist: [] });
+    let whitelist = saved.whitelist;
+    const listTabs = document.getElementById("listTabs");
+    listTabs.innerHTML = "";
+
+    filtered.forEach(tab => {
+        try {
+            const domain = new URL(tab.url).hostname;
+            const div = document.createElement("div");
+            const tabName = document.createElement("h4");
+            const url = document.createElement("p");
+            const cbox = document.createElement("input");
+            const isProtected = tab.pinned || tab.audible;
+
+            tabName.textContent = tab.title;
+            
+            // if checkbox is ticked, save tab domain in a local storage
+            cbox.type = "checkbox";
+            cbox.checked = isProtected || whitelist.includes(domain);
+            cbox.disabled = isProtected;
+            cbox.addEventListener("change", async () => {
+                if (cbox.checked) {
+                    whitelist.push(domain);
+                } else {
+                    whitelist = whitelist.filter(item => item !== domain);
+                }
+                await chrome.storage.local.set({ whitelist: whitelist });
+                displayList();
+            });
+
+            // mark pinned and audible tabs with a symbol
+            let prefix = "";
+            if (tab.audible) {
+                prefix += "🔉 ";
+            }
+            if (tab.pinned)  {
+                prefix += "📌 ";
+            } 
+            url.textContent = prefix + domain;
+            
+            div.appendChild(tabName);
+            div.appendChild(url);
+            div.appendChild(cbox);
+            listTabs.appendChild(div);
+        } catch (err) {
+            console.error(`Failed to display tab ID: ${tab.id}`, err);
+        }
+    });
+}
