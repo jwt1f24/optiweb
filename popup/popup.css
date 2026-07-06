@@ -82,13 +82,16 @@ h1 {
     display: none;
 }
 .domain-input {
-    width: 100%;
-    color: #000000;
-    background-color: #a6d3ff;
-    padding: 5px 8px 5px 8px;
-    border: none;
+    display: flex;
+    box-sizing: border-box;
     font-size: 14px;
-    cursor: pointer;
+}
+#domainField {
+    width: 75%;
+    
+}
+#domainBtn {
+    width: 25%;
 }
 
 /* settings */

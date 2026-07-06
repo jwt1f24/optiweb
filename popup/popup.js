@@ -30,6 +30,16 @@ listNavBtns.forEach(btn => {
                 section.style.display = "none";
             }
         });
+
+        // display all tabs section when secondary navbar button is clicked
+        if (btn.dataset.target === "allTabsView") {
+            displayList();
+        }
+
+        // display whitelist section when secondary navbar button is clicked
+        if (btn.dataset.target === "whitelistView") {
+            displayWhitelist();
+        }
     });
 });
 
@@ -102,8 +112,8 @@ async function displayList() {
     const filtered = tabs.filter(tab => !tab.url.startsWith("chrome://"));
     const saved = await chrome.storage.local.get({ whitelist: [] });
     let whitelist = saved.whitelist;
-    const listTabs = document.getElementById("listTabs");
-    listTabs.innerHTML = "";
+    const listContainer = document.getElementById("listTabs");
+    listContainer.innerHTML = "";
 
     filtered.forEach(tab => {
         try {
@@ -143,9 +153,41 @@ async function displayList() {
             div.appendChild(tabName);
             div.appendChild(url);
             div.appendChild(cbox);
-            listTabs.appendChild(div);
+            listContainer.appendChild(div);
         } catch (err) {
             console.error(`Failed to display tab ID: ${tab.id}`, err);
+        }
+    });
+}
+
+// display whitelisted domains on a list
+async function displayWhitelist() {
+    const saved = await chrome.storage.local.get({ whitelist: [] });
+    let whitelist = saved.whitelist;
+    const listContainer = document.getElementById("whitelistedDomains");
+    listContainer.innerHTML = "";
+
+    whitelist.forEach(domain => {
+        try {
+            const div = document.createElement("div");
+            const name = document.createElement("p");
+            const btn = document.createElement("button");
+
+            name.textContent = domain;
+
+            // button to remove saved domain from whitelist
+            btn.textContent = "x";
+            btn.addEventListener("click", async () => {
+                whitelist = whitelist.filter(item => item !== domain);
+                await chrome.storage.local.set({ whitelist: whitelist });
+                displayWhitelist();
+            });
+            
+            div.appendChild(name);
+            div.appendChild(btn);
+            listContainer.appendChild(div);
+        } catch (err) {
+            console.error(`Failed to display domain: ${domain}`, err);
         }
     });
 }
