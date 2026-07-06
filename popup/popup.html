@@ -46,8 +46,22 @@
 
             <!-- tab list section -->
             <div class="section" id="tabList">
-                <h1>Tab List</h1>
-                <div class="tab-list" id="listTabs"></div>
+                <div class="list-navbar">
+                    <button class="list-nav-btn" data-target="allTabsView">All Tabs</button>
+                    <button class="list-nav-btn" data-target="whitelistView">Whitelist</button>
+                </div>
+
+                <!-- list containers -->
+                <div class="list-container" id="allTabsView">
+                    <div id="listTabs"></div>
+                </div>
+                <div class="list-container" id="whitelistView">
+                    <div class="domain-input" id="domainInput">
+                        <input type="text" id="domainField" placeholder="Enter a domain"/>
+                        <button id="domainBtn">Add</button>
+                    </div>
+                    <div id="whitelistedDomains"></div>
+                </div>
             </div>
 
             <!-- settings section -->

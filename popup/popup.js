@@ -1,4 +1,4 @@
-// dyanmic navbar tab navigation
+// main navbar navigation
 const navBtns = document.querySelectorAll(".nav-btn");
 const sections = document.querySelectorAll(".section");
 navBtns.forEach(btn => {
@@ -11,10 +11,25 @@ navBtns.forEach(btn => {
             }
         });
 
-        // display tab list function
+        // default tab list display
         if (btn.dataset.target === "tabList") {
             displayList();
         }
+    });
+});
+
+// secondary navbar navigation for list tabs section
+const listNavBtns = document.querySelectorAll(".list-nav-btn");
+const listSections = document.querySelectorAll(".list-container");
+listNavBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        listSections.forEach(section => {
+            if (section.id === btn.dataset.target) {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        });
     });
 });
 
