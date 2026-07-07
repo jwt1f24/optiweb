@@ -76,6 +76,11 @@ async function updateMetrics() {
     }
 }
 
+// normalize domain into a simpler format
+function normalizeDomain(hostname) {
+    return hostname.replace(/^www\./, "");
+}
+
 // optimize browser by freezing inactive tabs on button click
 const optBtn = document.getElementById("optBtn");
 optBtn.addEventListener("click", async () => {
@@ -87,7 +92,7 @@ optBtn.addEventListener("click", async () => {
             continue;
         }
         try {
-            const domain = new URL(tab.url).hostname;
+            const domain = normalizeDomain(new URL(tab.url).hostname);
             if (!whitelist.includes(domain)) {
                 await chrome.tabs.discard(tab.id);
             }
@@ -95,13 +100,9 @@ optBtn.addEventListener("click", async () => {
             console.error(`Failed to discard tab ID: ${tab.id}`, err);
         }
     }
-    // refresh dashboard to load changes
+    // refresh dashboard
     updateMetrics();
 });
-
-// instantiate live view dashboard tab updates
-updateMetrics();
-setInterval(updateMetrics, 1000);
 
 // display all opened tabs on a list
 async function displayList() {
@@ -114,7 +115,7 @@ async function displayList() {
 
     filtered.forEach(tab => {
         try {
-            const domain = new URL(tab.url).hostname;
+            const domain = normalizeDomain(new URL(tab.url).hostname);
             const div = document.createElement("div");
             const tabName = document.createElement("h4");
             const url = document.createElement("p");
@@ -190,16 +191,14 @@ async function displayWhitelist() {
 }
 
 // whitelist domain input handling
-const domainField = document.getElementById("domainField");
-const domainBtn = document.getElementById("domainBtn");
-domainBtn.addEventListener("click", async () => {
-    const input = domainField.value;
+async function addToWhitelist() {
+    const input = normalizeDomain(domainField.value);
     const pattern = /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
     const validFormat = pattern.test(input);
     const saved = await chrome.storage.local.get({ whitelist: [] });
     let whitelist = saved.whitelist;
 
-    // validate if input is empty
+    // add domain to whitelist if input matches valid domain format
     if (validFormat) {
         if (!whitelist.includes(input)) {
             whitelist.push(input);
@@ -212,4 +211,18 @@ domainBtn.addEventListener("click", async () => {
         console.error(`Invalid domain format: ${input}`);
     }
     domainField.value = "";
+}
+
+// whitelist section event handling
+const domainBtn = document.getElementById("domainBtn");
+const domainField = document.getElementById("domainField");
+domainBtn.addEventListener("click", addToWhitelist);
+domainField.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addToWhitelist();
+    }
 });
+
+// instantiate live view dashboard tab updates
+updateMetrics();
+setInterval(updateMetrics, 1000);
