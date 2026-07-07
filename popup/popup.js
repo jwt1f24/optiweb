@@ -10,8 +10,7 @@ navBtns.forEach(btn => {
                 section.style.display = "none";
             }
         });
-
-        // default tab list display
+        // default display when user navigates to tab list section
         if (btn.dataset.target === "tabList") {
             displayList();
         }
@@ -30,13 +29,11 @@ listNavBtns.forEach(btn => {
                 section.style.display = "none";
             }
         });
-
-        // display all tabs section when secondary navbar button is clicked
+        // display all tabs section
         if (btn.dataset.target === "allTabsView") {
             displayList();
         }
-
-        // display whitelist section when secondary navbar button is clicked
+        // display whitelist section
         if (btn.dataset.target === "whitelistView") {
             displayWhitelist();
         }
@@ -191,3 +188,28 @@ async function displayWhitelist() {
         }
     });
 }
+
+// whitelist domain input handling
+const domainField = document.getElementById("domainField");
+const domainBtn = document.getElementById("domainBtn");
+domainBtn.addEventListener("click", async () => {
+    const input = domainField.value;
+    const pattern = /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
+    const validFormat = pattern.test(input);
+    const saved = await chrome.storage.local.get({ whitelist: [] });
+    let whitelist = saved.whitelist;
+
+    // validate if input is empty
+    if (validFormat) {
+        if (!whitelist.includes(input)) {
+            whitelist.push(input);
+        } else {
+            console.error(`Domain '${input}' already exists in whitelist`);
+        }
+        await chrome.storage.local.set({ whitelist: whitelist });
+        displayWhitelist();
+    } else {
+        console.error(`Invalid domain format: ${input}`);
+    }
+    domainField.value = "";
+});
