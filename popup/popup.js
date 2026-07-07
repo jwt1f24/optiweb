@@ -40,6 +40,11 @@ listNavBtns.forEach(btn => {
     });
 });
 
+// normalize domain into a simpler format
+function normalizeDomain(hostname) {
+    return hostname.replace(/^www\./, "");
+}
+
 // scan all opened tabs & update dashboard tab counter
 async function updateMetrics() {
     // check for active & sleeping tabs
@@ -76,14 +81,8 @@ async function updateMetrics() {
     }
 }
 
-// normalize domain into a simpler format
-function normalizeDomain(hostname) {
-    return hostname.replace(/^www\./, "");
-}
-
-// optimize browser by freezing inactive tabs on button click
-const optBtn = document.getElementById("optBtn");
-optBtn.addEventListener("click", async () => {
+// optimize browser by discarding inactive tabs
+async function optimize() {
     const saved = await chrome.storage.local.get({ whitelist: [] });
     const whitelist = saved.whitelist;
     const inactiveTabs = await chrome.tabs.query({ active: false, discarded: false, audible:false, pinned: false });
@@ -102,7 +101,7 @@ optBtn.addEventListener("click", async () => {
     }
     // refresh dashboard
     updateMetrics();
-});
+}
 
 // display all opened tabs on a list
 async function displayList() {
@@ -212,6 +211,18 @@ async function addToWhitelist() {
     }
     domainField.value = "";
 }
+
+// dashboard section event handling
+const optBtn = document.getElementById("optBtn");
+optBtn.addEventListener("click", optimize);
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        const dashboard = document.getElementById("dashboard");
+        if (dashboard.style.display !== "none") {
+            optBtn.click();
+        }
+    }
+});
 
 // whitelist section event handling
 const domainBtn = document.getElementById("domainBtn");
