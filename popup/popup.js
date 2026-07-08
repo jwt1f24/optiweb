@@ -109,16 +109,17 @@ async function optimize() {
     // refresh dashboard
     updateMetrics();
 
-    // send a notification after an optimizing action is triggered
+    // if settings enabled, send a notification after optimizing is triggered
+    await new Promise(res => setTimeout(res, 1000));
     const memAfter = await chrome.system.memory.getInfo();
-    const memSaved = ((memAfter.availableCapacity - memBefore.availableCapacity) / (1024 ** 2)).toFixed(1);
+    const memSaved = Math.max(0, ((memAfter.availableCapacity - memBefore.availableCapacity) / (1024 ** 2))).toFixed(1);
     const notifSaved = await chrome.storage.local.get({ checked: false });
-    
+
     // configure notification content
     if (notifSaved.checked) {
         chrome.notifications.create({
             type: "basic",
-            iconUrl: "/images/icon32.png",
+            iconUrl: "/images/icon128.png",
             title: "Web Browser Optimized",
             message: `${discardCount} tabs have been discarded, ${memSaved} MB of memory has been saved.`
         });
@@ -242,7 +243,13 @@ async function checkboxSettings() {
 
 // dashboard section event handling
 const optBtn = document.getElementById("optBtn");
-optBtn.addEventListener("click", optimize);
+optBtn.addEventListener("click", async () => {
+    document.body.classList.add("loading"); 
+    optBtn.disabled = true;
+    await optimize();
+    document.body.classList.remove("loading");
+    optBtn.disabled = false;
+});
 document.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         const dashboard = document.getElementById("dashboard");
