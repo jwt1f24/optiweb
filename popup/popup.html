@@ -76,14 +76,14 @@
                 <!-- automated optimization settings -->
                 <h3 class="settings-label">Optimization Management</h3>
                 <div class="opt-setting">
-                    <input type="checkbox">
+                    <input type="checkbox" id="percentCheck">
                     <p>Clean when above: (%)</p>
-                    <input type="number">
+                    <input type="number" id="percentValue" min="1" max="99" value="50">
                 </div>
                 <div class="opt-setting">
-                    <input type="checkbox">
+                    <input type="checkbox"  id="minuteCheck">
                     <p>Clean every: (mins.)</p>
-                    <input type="number">
+                    <input type="number" id="minuteValue" min="1" max="1440" value="1">
                 </div>
 
                 <!-- miscellaneous settings -->
