@@ -14,6 +14,10 @@ navBtns.forEach(btn => {
         if (btn.dataset.target === "tabList") {
             displayList();
         }
+        // restore settings
+        if (btn.dataset.target === "settings") {
+            checkboxSettings();
+        }
     });
 });
 
@@ -86,6 +90,8 @@ async function optimize() {
     const saved = await chrome.storage.local.get({ whitelist: [] });
     const whitelist = saved.whitelist;
     const inactiveTabs = await chrome.tabs.query({ active: false, discarded: false, audible:false, pinned: false });
+    const memBefore = await chrome.system.memory.getInfo();
+    let discardCount = 0;
     for (const tab of inactiveTabs) {
         if (!tab.id) {
             continue;
@@ -94,6 +100,7 @@ async function optimize() {
             const domain = normalizeDomain(new URL(tab.url).hostname);
             if (!whitelist.includes(domain)) {
                 await chrome.tabs.discard(tab.id);
+                discardCount++;
             }
         } catch (err) {
             console.error(`Failed to discard tab ID: ${tab.id}`, err);
@@ -101,6 +108,21 @@ async function optimize() {
     }
     // refresh dashboard
     updateMetrics();
+
+    // send a notification after an optimizing action is triggered
+    const memAfter = await chrome.system.memory.getInfo();
+    const memSaved = ((memAfter.availableCapacity - memBefore.availableCapacity) / (1024 ** 2)).toFixed(1);
+    const notifSaved = await chrome.storage.local.get({ checked: false });
+    
+    // configure notification content
+    if (notifSaved.checked) {
+        chrome.notifications.create({
+            type: "basic",
+            iconUrl: "/images/icon32.png",
+            title: "Web Browser Optimized",
+            message: `${discardCount} tabs have been discarded, ${memSaved} MB of memory has been saved.`
+        });
+    }
 }
 
 // display all opened tabs on a list
@@ -212,6 +234,12 @@ async function addToWhitelist() {
     domainField.value = "";
 }
 
+// checkbox setting value storing
+async function checkboxSettings() {
+    const saved = await chrome.storage.local.get({ checked: false });
+    notifCheck.checked = saved.checked;
+}
+
 // dashboard section event handling
 const optBtn = document.getElementById("optBtn");
 optBtn.addEventListener("click", optimize);
@@ -232,6 +260,12 @@ domainField.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         addToWhitelist();
     }
+});
+
+// notification setting event handling
+const notifCheck = document.getElementById("notifCheck");
+notifCheck.addEventListener("change", async () => {
+    await chrome.storage.local.set({ checked: notifCheck.checked });
 });
 
 // instantiate live view dashboard tab updates
