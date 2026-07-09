@@ -123,3 +123,10 @@ h1 {
 #light:hover {
     background-color: #c1d5ed;
 }
+#percentValue::-webkit-inner-spin-button,
+#percentValue::-webkit-outer-spin-button,
+#minuteValue::-webkit-inner-spin-button,
+#minuteValue::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

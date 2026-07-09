@@ -100,7 +100,7 @@ async function optimize() {
             const domain = normalizeDomain(new URL(tab.url).hostname);
             if (!whitelist.includes(domain)) {
                 await chrome.tabs.discard(tab.id);
-                discardCount++;
+                discardCount += 1;
             }
         } catch (err) {
             console.error(`Failed to discard tab ID: ${tab.id}`, err);
@@ -113,10 +113,10 @@ async function optimize() {
     await new Promise(res => setTimeout(res, 1000));
     const memAfter = await chrome.system.memory.getInfo();
     const memSaved = Math.max(0, ((memAfter.availableCapacity - memBefore.availableCapacity) / (1024 ** 2))).toFixed(1);
-    const notifSaved = await chrome.storage.local.get({ checked: false });
+    const notifSaved = await chrome.storage.local.get({ notifCbox: false });
 
     // configure notification content
-    if (notifSaved.checked) {
+    if (notifSaved.notifCbox) {
         chrome.notifications.create({
             type: "basic",
             iconUrl: "/images/icon128.png",
@@ -235,10 +235,20 @@ async function addToWhitelist() {
     domainField.value = "";
 }
 
-// checkbox setting value storing
+// settings checkbox value storing
 async function checkboxSettings() {
-    const saved = await chrome.storage.local.get({ checked: false });
-    notifCheck.checked = saved.checked;
+    const saved = await chrome.storage.local.get({ 
+        notifCbox: false,
+        pctCbox: false,
+        minCbox: false,
+        pctValue: 50,
+        minValue: 1
+    });
+    notifCheck.checked = saved.notifCbox;
+    percentCheck.checked = saved.pctCbox;
+    minuteCheck.checked = saved.minCbox;
+    percentValue.value = saved.pctValue;
+    minuteValue.value = saved.minValue;
 }
 
 // dashboard section event handling
@@ -269,10 +279,91 @@ domainField.addEventListener("keydown", (event) => {
     }
 });
 
+// number input event handling
+function numberInput(input, key, defaultVal) {
+    // ignore non-digit characters
+    input.addEventListener("input", () => {
+        input.value = input.value.replace(/\D/g, "");
+    });
+
+    input.addEventListener("change", async () => {
+        // reset field to default value if value is empty
+        if (input.value === "") {
+            input.value = defaultVal;
+        }
+        
+        // clamp numbers within their min/max boundary
+        const curr = parseInt(input.value);
+        const min = parseInt(input.min);
+        const max = parseInt(input.max);
+
+        if (curr < min) {
+            input.value = min;
+        } else if (curr > max) {
+            input.value = max;
+        }
+        await chrome.storage.local.set({ [key]: input.value });
+    });
+}
+
+const percentCheck = document.getElementById("percentCheck");
+const minuteCheck = document.getElementById("minuteCheck");
+const percentValue = document.getElementById("percentValue");
+const minuteValue = document.getElementById("minuteValue");
+
+percentCheck.addEventListener("change", async () => {
+    await chrome.storage.local.set({ pctCbox: percentCheck.checked });
+});
+minuteCheck.addEventListener("change", async () => {
+    await chrome.storage.local.set({ minCbox: minuteCheck.checked });
+});
+numberInput(percentValue, "pctValue", 50);
+numberInput(minuteValue, "minValue", 1);
+
+// loop boundary values of number input
+function numberInputLoop(input, dir, defaultVal) {
+    // reset field to default value if value is empty
+    if (input.value === "") {
+        input.value = defaultVal;
+    }
+    
+    // loop values by going from one extreme to another extreme
+    let curr = parseInt(input.value);
+    const min = parseInt(input.min);
+    const max = parseInt(input.max);
+
+    if (dir === "up") {
+        curr = (curr === max) ? min : curr + 1;
+    } else {
+        curr = (curr === min) ? max : curr - 1;
+    }
+    input.value = curr;
+    return curr;
+}
+
+function numberInputButton(upBtn, downBtn, input, key, defaultVal) {
+    upBtn.addEventListener("click", async () => {
+        numberInputLoop(input, "up", defaultVal);
+        await chrome.storage.local.set({ [key]: input.value });
+    });
+    downBtn.addEventListener("click", async () => {
+        numberInputLoop(input, "down", defaultVal);
+        await chrome.storage.local.set({ [key]: input.value });
+    });
+}
+
+const percentUp = document.getElementById("percentUp");
+const percentDown = document.getElementById("percentDown");
+const minuteUp = document.getElementById("minuteUp");
+const minuteDown = document.getElementById("minuteDown");
+
+numberInputButton(percentUp, percentDown, percentValue, "pctValue", 50);
+numberInputButton(minuteUp, minuteDown, minuteValue, "minValue", 1);
+
 // notification setting event handling
 const notifCheck = document.getElementById("notifCheck");
 notifCheck.addEventListener("change", async () => {
-    await chrome.storage.local.set({ checked: notifCheck.checked });
+    await chrome.storage.local.set({ notifCbox: notifCheck.checked });
 });
 
 // instantiate live view dashboard tab updates
