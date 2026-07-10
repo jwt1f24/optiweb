@@ -193,15 +193,11 @@ async function addToWhitelist() {
 async function checkboxSettings() {
     const saved = await chrome.storage.local.get({ 
         notifCbox: false,
-        pctCbox: false,
         minCbox: false,
-        pctValue: 50,
         minValue: 1
     });
     notifCheck.checked = saved.notifCbox;
-    percentCheck.checked = saved.pctCbox;
     minuteCheck.checked = saved.minCbox;
-    percentValue.value = saved.pctValue;
     minuteValue.value = saved.minValue;
 }
 
@@ -261,18 +257,11 @@ function numberInput(input, key, defaultVal) {
     });
 }
 
-const percentCheck = document.getElementById("percentCheck");
 const minuteCheck = document.getElementById("minuteCheck");
-const percentValue = document.getElementById("percentValue");
 const minuteValue = document.getElementById("minuteValue");
-
-percentCheck.addEventListener("change", async () => {
-    await chrome.storage.local.set({ pctCbox: percentCheck.checked });
-});
 minuteCheck.addEventListener("change", async () => {
     await chrome.storage.local.set({ minCbox: minuteCheck.checked });
 });
-numberInput(percentValue, "pctValue", 50);
 numberInput(minuteValue, "minValue", 1);
 
 // loop boundary values of number input
@@ -307,12 +296,8 @@ function numberInputButton(upBtn, downBtn, input, key, defaultVal) {
     });
 }
 
-const percentUp = document.getElementById("percentUp");
-const percentDown = document.getElementById("percentDown");
 const minuteUp = document.getElementById("minuteUp");
 const minuteDown = document.getElementById("minuteDown");
-
-numberInputButton(percentUp, percentDown, percentValue, "pctValue", 50);
 numberInputButton(minuteUp, minuteDown, minuteValue, "minValue", 1);
 
 // notification setting event handling
