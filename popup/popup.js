@@ -5,11 +5,16 @@ navBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         sections.forEach(section => {
             if (section.id === btn.dataset.target) {
-                section.style.display = "block";
+                section.style.display = "flex";
             } else {
                 section.style.display = "none";
             }
         });
+
+        // active nav button toggle effect
+        navBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
         // default display when user navigates to tab list section
         if (btn.dataset.target === "tabList") {
             displayList();
@@ -28,11 +33,16 @@ listNavBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         listSections.forEach(section => {
             if (section.id === btn.dataset.target) {
-                section.style.display = "block";
+                section.style.display = "flex";
             } else {
                 section.style.display = "none";
             }
         });
+
+        // active nav button toggle effect
+        listNavBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
         // display all tabs section
         if (btn.dataset.target === "allTabsView") {
             displayList();
@@ -48,8 +58,7 @@ listNavBtns.forEach(btn => {
 async function updateMetrics() {
     // check for active & sleeping tabs
     const tabs = await chrome.tabs.query({});
-    let active = 0;
-    let freeze = 0;
+    let active = 0, freeze = 0, pinned = 0, audible = 0;
     
     tabs.forEach(tab => {
         if (tab.discarded) { 
@@ -57,13 +66,23 @@ async function updateMetrics() {
         } else {
             active += 1;
         }
+        if (tab.pinned) {
+            pinned += 1;
+        }
+        if (tab.audible) {
+            audible += 1;
+        }
     });
 
     // connect the html elements with the number counter
     const activeCount = document.getElementById("activeCount");
+    const pinnedCount = document.getElementById("pinnedCount");
+    const audibleCount = document.getElementById("audibleCount");
     const freezeCount = document.getElementById("freezeCount");
 
     activeCount.innerText = active;
+    pinnedCount.innerText = pinned;
+    audibleCount.innerText = audible;
     freezeCount.innerText = freeze;
 
     // display memory usage metrics
@@ -77,6 +96,15 @@ async function updateMetrics() {
 
         memUsage.innerText = memUsed.toFixed(1) + " GB";
         memAvailable.innerText = memUnused.toFixed(1) + " GB";
+    }
+}
+
+// scrollbar effect when tab list content overflows
+async function scrollbar(container) {
+    if (container.scrollHeight > container.clientHeight) {
+        container.style.paddingRight = "6px";
+    } else {
+        container.style.paddingRight = "0px";
     }
 }
 
@@ -94,6 +122,7 @@ async function displayList() {
             const domain = normalizeDomain(new URL(tab.url).hostname);
             const div = document.createElement("div");
             const tabName = document.createElement("h4");
+            const rightGroup = document.createElement("div");
             const url = document.createElement("p");
             const cbox = document.createElement("input");
             const isProtected = tab.pinned || tab.audible;
@@ -116,22 +145,25 @@ async function displayList() {
 
             // mark pinned and audible tabs with a symbol
             let prefix = "";
-            if (tab.audible) {
-                prefix += "🔉 ";
-            }
             if (tab.pinned)  {
                 prefix += "📌 ";
-            } 
+            } else if (tab.audible) {
+                prefix += "🔉 ";
+            }
             url.textContent = prefix + domain;
-            
+
+            rightGroup.className = "row-right";
+            rightGroup.appendChild(url);
+            rightGroup.appendChild(cbox);
             div.appendChild(tabName);
-            div.appendChild(url);
-            div.appendChild(cbox);
+            div.appendChild(rightGroup);
             listContainer.appendChild(div);
         } catch (err) {
             console.error(`Failed to display tab ID: ${tab.id}`, err);
         }
     });
+    // scrollbar event handling
+    scrollbar(listContainer);
 }
 
 // display whitelisted domains on a list
@@ -150,7 +182,7 @@ async function displayWhitelist() {
             name.textContent = domain;
 
             // button to remove saved domain from whitelist
-            btn.textContent = "x";
+            btn.textContent = "✖";
             btn.addEventListener("click", async () => {
                 whitelist = whitelist.filter(item => item !== domain);
                 await chrome.storage.local.set({ whitelist: whitelist });
@@ -164,6 +196,8 @@ async function displayWhitelist() {
             console.error(`Failed to display domain: ${domain}`, err);
         }
     });
+    // scrollbar event handling
+    scrollbar(listContainer);
 }
 
 // whitelist domain input handling
