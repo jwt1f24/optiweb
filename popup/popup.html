@@ -12,7 +12,7 @@
 
             <!-- navbar -->
             <div class="navbar">
-                <button class="nav-btn" data-target="dashboard">Dashboard</button>
+                <button class="nav-btn active" data-target="dashboard">Dashboard</button>
                 <button class="nav-btn" data-target="tabList">Tab List</button>
                 <button class="nav-btn" data-target="settings">Settings</button>
             </div>
@@ -36,7 +36,15 @@
                         <span id="activeCount">0</span>
                     </div>
                     <div class="stat-row">
-                        <span>Freeze Tabs:</span>
+                        <span>Pinned Tabs:</span>
+                        <span id="pinnedCount">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Tabs Playing Audio:</span>
+                        <span id="audibleCount">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Discarded Tabs:</span>
                         <span id="freezeCount">0</span>
                     </div>
                 </div>
@@ -47,7 +55,7 @@
             <!-- tab list section -->
             <div class="section" id="tabList">
                 <div class="list-navbar">
-                    <button class="list-nav-btn" data-target="allTabsView">All Tabs</button>
+                    <button class="list-nav-btn active" data-target="allTabsView">All Tabs</button>
                     <button class="list-nav-btn" data-target="whitelistView">Whitelist</button>
                 </div>
 
@@ -67,26 +75,38 @@
             <!-- settings section -->
             <div class="section" id="settings">
                 <!-- display theme settings -->
-                <h3 class="settings-label">Theme</h3>
+                <h2 class="settings-label">Theme</h2>
                 <div class="theme-bar">
                     <button class="theme-btn" id="dark">Dark</button>
                     <button class="theme-btn" id="light">Light</button>
                 </div>
 
                 <!-- optimization settings -->
-                <h3 class="settings-label">Optimization Management</h3>
+                <h2 class="settings-label">Optimization Settings</h2>
                 <div class="opt-setting">
-                    <input type="checkbox"  id="minuteCheck">
-                    <p>Clean every: (mins.)</p>
-                    <input type="number" id="minuteValue" min="1" max="1440" value="1">
-                    <div class="number-input-button">
-                        <button id="minuteUp">▲</button>
-                        <button id="minuteDown">▼</button>
+                    <div class="option">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="minuteCheck">
+                            <span class="slider"></span>
+                        </label>
+                        <p>Clean every: (mins.)</p>
+                    </div>
+                    <div class="number-input">
+                        <input type="number" id="minuteValue" min="1" max="1440" value="1">
+                        <div class="number-input-btn">
+                            <button id="minuteUp">▲</button>
+                            <button id="minuteDown">▼</button>
+                        </div>
                     </div>
                 </div>
                 <div class="opt-setting">
-                    <input type="checkbox" id="notifCheck">
-                    <p>Enable cleaning result notifications</p>
+                    <div class="option">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notifCheck">
+                            <span class="slider"></span>
+                        </label>
+                        <p>Enable notifications</p>
+                    </div>
                 </div>
             </div>
         </main>    
