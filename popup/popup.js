@@ -264,6 +264,36 @@ domainField.addEventListener("keydown", (event) => {
     }
 });
 
+// display theme setting
+const darkBtn = document.getElementById("dark");
+const lightBtn = document.getElementById("light");
+
+function setTheme(theme) {
+    if (theme === "light") {
+        document.body.classList.add("light-theme");
+        lightBtn.classList.add("active");
+        darkBtn.classList.remove("active");
+    } else {
+        document.body.classList.remove("light-theme");
+        darkBtn.classList.add("active");
+        lightBtn.classList.remove("active");
+    }
+}
+async function restoreTheme() {
+    const saved = await chrome.storage.local.get({ theme: "dark" });
+    setTheme(saved.theme);
+}
+
+darkBtn.addEventListener("click", async () => {
+    setTheme("dark");
+    await chrome.storage.local.set({ theme: "dark" });
+});
+lightBtn.addEventListener("click", async () => {
+    setTheme("light");
+    await chrome.storage.local.set({ theme: "light" });
+});
+restoreTheme();
+
 // number input event handling
 function numberInput(input, key, defaultVal) {
     // ignore non-digit characters

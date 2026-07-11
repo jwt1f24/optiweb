@@ -360,19 +360,15 @@ h1, h2 {
 .theme-btn {
     flex: 1;
     padding: 7px 8px;
-    border: 1px solid var(--border);
+    border: 2px solid transparent;
     border-radius: 6px;
     font-family: inherit;
     font-size: 14px;
-    color: var(--text-muted);
-    background: var(--surface);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 .theme-btn.active {
     border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-dim);
 }
 .opt-setting {
     display: flex;
@@ -389,6 +385,20 @@ h1, h2 {
 .option p {
     margin: 0;
     color: var(--text);
+}
+#dark {
+    color: #E8E9EB;
+    background: #1c1c1c;
+}
+#dark:hover {
+    background: #000000;
+}
+#light {
+    color: #1A1C20;
+    background: #F5F6F8;
+}
+#light:hover {
+    background: #E2E4E8;
 }
 
 /* toggle switch */
@@ -451,6 +461,7 @@ h1, h2 {
     font-size: 14px;
     color: var(--text);
     background: var(--surface);
+    transition: all 0.2s ease;
 }
 .number-input input:focus {
     outline: none;
@@ -468,10 +479,12 @@ h1, h2 {
     border: 1px solid var(--border);
     border-radius: 0 6px 6px 0;
     overflow: hidden;
+    transition: all 0.2s ease;
 }
 .number-input-btn button {
     flex: 1;
     width: 24px;
+    line-height: 1;
     padding: 0;
     border: none;
     border-bottom: 1px solid var(--border);
@@ -479,7 +492,7 @@ h1, h2 {
     color: var(--text-muted);
     background: var(--surface);
     cursor: pointer;
-    line-height: 1;
+    transition: all 0.2s ease;
 }
 .number-input-btn button:last-child {
     border-bottom: none;
