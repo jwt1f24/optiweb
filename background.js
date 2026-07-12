@@ -28,3 +28,10 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
         }
     }
 });
+
+// hotkey event handling
+chrome.commands.onCommand.addListener(async (command) => {
+    if (command  === "run-optimize") {
+        await optimize();
+    }
+});

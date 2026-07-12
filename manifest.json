@@ -28,6 +28,17 @@
         "48": "images/icon48.png",
         "128": "images/icon128.png"
     },
+    "commands": {
+        "_execute_action": {
+            "description": "Activate Extension"
+        },
+        "toggle-extension": {
+            "description": "Toggle Extension"
+        },
+        "run-optimize": {
+            "description": "Run Optimization"
+        }
+    },
     "content_scripts" : [
         {
             "js": ["scripts/content.js"],
