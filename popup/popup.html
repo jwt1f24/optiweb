@@ -89,7 +89,7 @@
                             <input type="checkbox" id="minuteCheck">
                             <span class="slider"></span>
                         </label>
-                        <p>Clean every: (mins.)</p>
+                        <p>Clean every (mins.)</p>
                     </div>
                     <div class="number-input">
                         <input type="number" id="minuteValue" min="1" max="1440" value="1">
@@ -107,6 +107,27 @@
                         </label>
                         <p>Enable notifications</p>
                     </div>
+                </div>
+
+                <!-- hotkey settings -->
+                <h2 class="settings-label">Keyboard Shortcuts</h2>
+                <div class="opt-setting">
+                    <div class="option">
+                        <p>Activate Extension</p>
+                    </div>
+                    <button class="hotkey-btn" data-command="_execute_action"></button>
+                </div>
+                <div class="opt-setting">
+                    <div class="option">
+                        <p>Toggle Extension</p>
+                    </div>
+                    <button class="hotkey-btn" data-command="toggle-extension"></button>
+                </div>
+                <div class="opt-setting">
+                    <div class="option">
+                        <p>Run Optimization</p>
+                    </div>
+                    <button class="hotkey-btn" data-command="run-optimize"></button>
                 </div>
             </div>
         </main>    

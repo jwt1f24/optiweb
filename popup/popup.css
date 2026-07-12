@@ -501,3 +501,25 @@ h1, h2 {
 .number-input-btn button:hover {
     background: var(--accent-dimmer);
 }
+
+/* hotkey button */
+.hotkey-btn {
+    width: 120px;
+    padding: 5px 10px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--surface);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.hotkey-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-dimmer);
+}

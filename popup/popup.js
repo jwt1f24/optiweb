@@ -273,6 +273,7 @@ async function checkboxSettings() {
     notifCheck.checked = saved.notifCbox;
     minuteCheck.checked = saved.minCbox;
     minuteValue.value = saved.minValue;
+    updateHotkeys();
 }
 
 // dashboard section event handling
@@ -409,6 +410,28 @@ const notifCheck = document.getElementById("notifCheck");
 notifCheck.addEventListener("change", async () => {
     await chrome.storage.local.set({ notifCbox: notifCheck.checked });
 });
+
+// hotkey settings event handling
+const hotkeyButtons = document.querySelectorAll(".hotkey-btn");
+hotkeyButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
+    });
+});
+
+async function updateHotkeys() {
+    const commands = await chrome.commands.getAll();
+    
+    hotkeyButtons.forEach(btn => {
+        const commandName = btn.dataset.command;
+        const match = commands.find(cmd => cmd.name === commandName);
+
+        if (match) {
+            btn.textContent = match.shortcut || "Not set";
+        }
+    });
+}
+updateHotkeys();
 
 // instantiate live view dashboard tab updates
 updateMetrics();
