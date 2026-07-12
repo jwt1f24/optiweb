@@ -177,20 +177,60 @@ async function displayWhitelist() {
         try {
             const div = document.createElement("div");
             const name = document.createElement("p");
-            const btn = document.createElement("button");
+            const rightGroup = document.createElement("div");
+            const editBtn = document.createElement("button");
+            const deleteBtn = document.createElement("button");
+
+            editBtn.className = "edit-btn";
+            deleteBtn.className = "delete-btn";
 
             name.textContent = domain;
+            editBtn.textContent = "✎";
+            deleteBtn.textContent = "✖";
+
+            // button to edit existing domain in whitelist
+            editBtn.addEventListener("click", () => {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = domain;
+                div.replaceChild(input, name);
+                input.focus();
+
+                const saveEdit = async () => {
+                    const newDomain = normalizeDomain(input.value);
+                    const pattern = /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
+                    if (pattern.test(newDomain) && newDomain !== domain) {
+                        whitelist = whitelist.filter(item => item !== domain);
+                        if (!whitelist.includes(newDomain)) {
+                            whitelist.push(newDomain);
+                        }
+                        await chrome.storage.local.set({ whitelist: whitelist });
+                        displayWhitelist();
+                    } else {
+                        // revert if invalid or unchanged
+                        displayWhitelist(); 
+                    }
+                };
+
+                input.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter") saveEdit();
+                    if (e.key === "Escape") displayWhitelist();
+                });
+                input.addEventListener("blur", saveEdit);
+            });
 
             // button to remove saved domain from whitelist
-            btn.textContent = "✖";
-            btn.addEventListener("click", async () => {
+            deleteBtn.addEventListener("click", async () => {
                 whitelist = whitelist.filter(item => item !== domain);
                 await chrome.storage.local.set({ whitelist: whitelist });
                 displayWhitelist();
             });
             
+            rightGroup.className = "row-right";
+            rightGroup.appendChild(editBtn);
+            rightGroup.appendChild(deleteBtn);
             div.appendChild(name);
-            div.appendChild(btn);
+            div.appendChild(rightGroup);
             listContainer.appendChild(div);
         } catch (err) {
             console.error(`Failed to display domain: ${domain}`, err);
