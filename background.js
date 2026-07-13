@@ -6,6 +6,14 @@ async function isExtensionEnabled() {
     return saved.extensionEnabled;
 }
 
+// optimize on browser startup
+chrome.runtime.onStartup.addListener(async () => {
+    if (!(await isExtensionEnabled())) {
+        return;
+    }
+    await optimize();
+});
+
 // automated optimization
 let isOptimizing = false;
 chrome.alarms.create("timeOptimizeCheck", { periodInMinutes: 1 });
