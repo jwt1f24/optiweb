@@ -1,3 +1,38 @@
+const extensionToggle = document.getElementById("extensionToggle");
+const dashboardContent = document.getElementById("dashboardContent");
+const tabListContent = document.getElementById("tabListContent");
+const settingsContent = document.getElementById("settingsContent");
+
+// toggle extension event handling
+function applyEnabledState(enabled) {
+    dashboardContent.classList.toggle("disabled", !enabled);
+    tabListContent.classList.toggle("disabled", !enabled);
+    settingsContent.classList.toggle("disabled", !enabled);
+}
+
+// update extension toggle state
+extensionToggle.addEventListener("change", async () => {
+    const enabled = extensionToggle.checked;
+    await chrome.storage.local.set({ extensionEnabled: enabled });
+    applyEnabledState(enabled);
+});
+
+// check hotkey changes in local storage
+chrome.storage.onChanged.addListener((changes, area) => {
+    if (area === "local" && changes.extensionEnabled) {
+        applyEnabledState(changes.extensionEnabled.newValue);
+        extensionToggle.checked = changes.extensionEnabled.newValue;
+    }
+});
+
+// load current saved extension toggle state
+async function restoreEnabledState() {
+    const saved = await chrome.storage.local.get({ extensionEnabled: true });
+    extensionToggle.checked = saved.extensionEnabled;
+    applyEnabledState(saved.extensionEnabled);
+}
+restoreEnabledState();
+
 // main navbar navigation
 const navBtns = document.querySelectorAll(".nav-btn");
 const sections = document.querySelectorAll(".section");
@@ -418,14 +453,12 @@ hotkeyButtons.forEach(btn => {
         chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
     });
 });
-
 async function updateHotkeys() {
     const commands = await chrome.commands.getAll();
-    
+
     hotkeyButtons.forEach(btn => {
         const commandName = btn.dataset.command;
         const match = commands.find(cmd => cmd.name === commandName);
-
         if (match) {
             btn.textContent = match.shortcut || "Not set";
         }
