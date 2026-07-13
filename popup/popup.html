@@ -10,6 +10,15 @@
         <main>
             <h1>OptiWeb</h1>
 
+            <!-- extension toggle setting -->
+            <div class="opt-setting" id="extensionToggleRow">
+                <p>Enable OptiWeb</p>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="extensionToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
             <!-- navbar -->
             <div class="navbar">
                 <button class="nav-btn active" data-target="dashboard">Dashboard</button>
@@ -19,115 +28,123 @@
             
             <!-- dashboard section -->
             <div class="section" id="dashboard">
-                <!-- statistic display -->
-                <div class="stat-container">
-                    <div class="stat-row">
-                        <span>Memory Usage:</span>
-                        <span id="memUsage">0.0 GB</span>
+                <div class="content-container" id="dashboardContent">
+                    <!-- statistic display -->
+                    <div class="stat-container">
+                        <div class="stat-row">
+                            <span>Memory Usage:</span>
+                            <span id="memUsage">0.0 GB</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Memory Available:</span>
+                            <span id="memAvailable">0.0 GB</span>
+                        </div>
                     </div>
-                    <div class="stat-row">
-                        <span>Memory Available:</span>
-                        <span id="memAvailable">0.0 GB</span>
+                    <div class="stat-container">
+                        <div class="stat-row">
+                            <span>Active Tabs:</span>
+                            <span id="activeCount">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Pinned Tabs:</span>
+                            <span id="pinnedCount">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Tabs Playing Audio:</span>
+                            <span id="audibleCount">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span>Discarded Tabs:</span>
+                            <span id="freezeCount">0</span>
+                        </div>
                     </div>
-                </div>
-                <div class="stat-container">
-                    <div class="stat-row">
-                        <span>Active Tabs:</span>
-                        <span id="activeCount">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Pinned Tabs:</span>
-                        <span id="pinnedCount">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Tabs Playing Audio:</span>
-                        <span id="audibleCount">0</span>
-                    </div>
-                    <div class="stat-row">
-                        <span>Discarded Tabs:</span>
-                        <span id="freezeCount">0</span>
-                    </div>
-                </div>
-                <!-- button to execute optimization action -->
-                <button class="opt-btn" id="optBtn">Optimize</button>
+
+                    <!-- button to execute optimization action -->
+                    <button class="opt-btn" id="optBtn">Optimize</button>
+                </div>    
             </div>
 
             <!-- tab list section -->
             <div class="section" id="tabList">
-                <div class="list-navbar">
-                    <button class="list-nav-btn active" data-target="allTabsView">All Tabs</button>
-                    <button class="list-nav-btn" data-target="whitelistView">Whitelist</button>
-                </div>
-
-                <!-- list containers -->
-                <div class="list-container" id="allTabsView">
-                    <div id="listTabs"></div>
-                </div>
-                <div class="list-container" id="whitelistView">
-                    <div class="domain-input" id="domainInput">
-                        <input type="text" id="domainField" placeholder="e.g. www.google.com"/>
-                        <button id="domainBtn">Add</button>
+                <div class="content-container" id="tabListContent">
+                    <!-- secondary navbar for all tabs & whitelist sections -->
+                    <div class="list-navbar">
+                        <button class="list-nav-btn active" data-target="allTabsView">All Tabs</button>
+                        <button class="list-nav-btn" data-target="whitelistView">Whitelist</button>
                     </div>
-                    <div id="whitelistedDomains"></div>
+
+                    <!-- list containers -->
+                    <div class="list-container" id="allTabsView">
+                        <div id="listTabs"></div>
+                    </div>
+                    <div class="list-container" id="whitelistView">
+                        <div class="domain-input" id="domainInput">
+                            <input type="text" id="domainField" placeholder="e.g. www.google.com"/>
+                            <button id="domainBtn">Add</button>
+                        </div>
+                        <div id="whitelistedDomains"></div>
+                    </div>
                 </div>
             </div>
 
             <!-- settings section -->
             <div class="section" id="settings">
-                <!-- display theme settings -->
-                <h2 class="settings-label">Display Theme</h2>
-                <div class="theme-bar">
-                    <button class="theme-btn" id="light">Light</button>
-                    <button class="theme-btn" id="dark">Dark</button>
-                </div>
-
-                <!-- optimization settings -->
-                <h2 class="settings-label">Optimization Settings</h2>
-                <div class="opt-setting">
-                    <div class="option">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="minuteCheck">
-                            <span class="slider"></span>
-                        </label>
-                        <p>Clean every (mins.)</p>
-                    </div>
-                    <div class="number-input">
-                        <input type="number" id="minuteValue" min="1" max="1440" value="1">
-                        <div class="number-input-btn">
-                            <button id="minuteUp">▲</button>
-                            <button id="minuteDown">▼</button>
+                <div class="content-container" id="settingsContent">
+                    <!-- optimization settings -->
+                    <h2 class="settings-label">Optimization Settings</h2>
+                    <div class="opt-setting">
+                        <div class="option">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="minuteCheck">
+                                <span class="slider"></span>
+                            </label>
+                            <p>Clean every (mins.)</p>
+                        </div>
+                        <div class="number-input">
+                            <input type="number" id="minuteValue" min="1" max="1440" value="1">
+                            <div class="number-input-btn">
+                                <button id="minuteUp">▲</button>
+                                <button id="minuteDown">▼</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="opt-setting">
-                    <div class="option">
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="notifCheck">
-                            <span class="slider"></span>
-                        </label>
-                        <p>Enable notifications</p>
+                    <div class="opt-setting">
+                        <div class="option">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="notifCheck">
+                                <span class="slider"></span>
+                            </label>
+                            <p>Enable notifications</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- hotkey settings -->
-                <h2 class="settings-label">Keyboard Shortcuts</h2>
-                <div class="opt-setting">
-                    <div class="option">
-                        <p>Activate Extension</p>
+                    <!-- display theme settings -->
+                    <h2 class="settings-label">Display Theme</h2>
+                    <div class="theme-bar">
+                        <button class="theme-btn" id="light">Light</button>
+                        <button class="theme-btn" id="dark">Dark</button>
                     </div>
-                    <button class="hotkey-btn" data-command="_execute_action"></button>
-                </div>
-                <div class="opt-setting">
-                    <div class="option">
-                        <p>Toggle Extension</p>
+
+                    <!-- hotkey settings -->
+                    <h2 class="settings-label">Keyboard Shortcuts</h2>
+                    <div class="opt-setting">
+                        <div class="option">
+                            <p>Activate Extension</p>
+                        </div>
+                        <button class="hotkey-btn" data-command="_execute_action"></button>
                     </div>
-                    <button class="hotkey-btn" data-command="toggle-extension"></button>
-                </div>
-                <div class="opt-setting">
-                    <div class="option">
-                        <p>Run Optimization</p>
+                    <div class="opt-setting">
+                        <div class="option">
+                            <p>Toggle Extension</p>
+                        </div>
+                        <button class="hotkey-btn" data-command="toggle-extension"></button>
                     </div>
-                    <button class="hotkey-btn" data-command="run-optimize"></button>
+                    <div class="opt-setting">
+                        <div class="option">
+                            <p>Run Optimization</p>
+                        </div>
+                        <button class="hotkey-btn" data-command="run-optimize"></button>
+                    </div>
                 </div>
             </div>
         </main>    

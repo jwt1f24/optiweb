@@ -368,8 +368,11 @@ h1, h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 0 18px 0;
+    margin: 0 0 10px 0;
     font-size: 14px;
+}
+.opt-setting p {
+    margin-left: 6px;
 }
 .option {
     display: flex;
@@ -522,4 +525,24 @@ h1, h2 {
 .hotkey-btn:hover {
     border-color: var(--accent);
     background: var(--accent-dimmer);
+}
+
+/* disabled content effect */
+#extensionToggleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 10px 0;
+    font-size: 14px;
+}
+.content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    transition: opacity 0.2s ease;
+}
+.content-container.disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
