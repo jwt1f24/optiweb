@@ -300,14 +300,19 @@ async function addToWhitelist() {
 
 // settings checkbox value storing
 async function checkboxSettings() {
-    const saved = await chrome.storage.local.get({ 
-        notifCbox: false,
+    const savedSettings = await chrome.storage.local.get({ 
         minCbox: false,
-        minValue: 1
+        minValue: 1,
+        unfocusedCbox: false,
+        unfocusedValue: 5,
+        notifCbox: false
     });
-    notifCheck.checked = saved.notifCbox;
-    minuteCheck.checked = saved.minCbox;
-    minuteValue.value = saved.minValue;
+    minuteCheck.checked = savedSettings.minCbox;
+    minuteValue.value = savedSettings.minValue;
+    unfocusedCheck.checked = savedSettings.unfocusedCbox;
+    unfocusedValue.value = savedSettings.unfocusedValue;
+    notifCheck.checked = savedSettings.notifCbox;
+
     updateHotkeys();
 }
 
@@ -439,6 +444,17 @@ function numberInputButton(upBtn, downBtn, input, key, defaultVal) {
 const minuteUp = document.getElementById("minuteUp");
 const minuteDown = document.getElementById("minuteDown");
 numberInputButton(minuteUp, minuteDown, minuteValue, "minValue", 1);
+
+// discard individual tabs after set minutes event handling
+const unfocusedCheck = document.getElementById("unfocusedCheck");
+const unfocusedValue = document.getElementById("unfocusedValue");
+
+unfocusedCheck.addEventListener("change", async () => {
+    await chrome.storage.local.set({ unfocusedCbox: unfocusedCheck.checked });
+});
+unfocusedValue.addEventListener("change", async () => {
+    await chrome.storage.local.set({ unfocusedValue: parseInt(unfocusedValue.value) });
+});
 
 // notification setting event handling
 const notifCheck = document.getElementById("notifCheck");
