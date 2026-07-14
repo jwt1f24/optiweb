@@ -8,7 +8,8 @@
         "storage",
         "system.memory",
         "alarms",
-        "notifications"
+        "notifications",
+        "downloads"
     ],
     "background": {
         "service_worker": "background.js"
