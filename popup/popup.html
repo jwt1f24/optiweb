@@ -91,59 +91,90 @@
             <div class="section" id="settings">
                 <div class="content-container" id="settingsContent">
                     <!-- optimization settings -->
-                    <h2 class="settings-label">Optimization Settings</h2>
-                    <div class="opt-setting">
-                        <div class="option">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="minuteCheck">
-                                <span class="slider"></span>
-                            </label>
-                            <p>Clean every (mins.)</p>
-                        </div>
-                        <div class="number-input">
-                            <input type="number" id="minuteValue" min="1" max="1440" value="1">
-                            <div class="number-input-btn">
-                                <button id="minuteUp">▲</button>
-                                <button id="minuteDown">▼</button>
+                    <div class="setting-category">                       
+                        <h2 class="settings-label">Optimization Settings</h2>
+                        
+                        <div class="opt-setting">
+                            <div class="option">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="minuteCheck">
+                                    <span class="slider"></span>
+                                </label>
+                                <p>Clean every (mins.)</p>
+                            </div>
+                            <div class="number-input">
+                                <input type="number" id="minuteValue" min="1" max="1440" value="1">
+                                <div class="number-input-btn">
+                                    <button id="minuteUp">▲</button>
+                                    <button id="minuteDown">▼</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="opt-setting">
-                        <div class="option">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="notifCheck">
-                                <span class="slider"></span>
-                            </label>
-                            <p>Enable notifications</p>
+                        
+                        <div class="opt-setting">
+                            <div class="option">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="unfocusedCheck">
+                                    <span class="slider"></span>
+                                </label>
+                                <p>Clean inactive tab after</p>
+                            </div>
+                            <div class="dropdown">
+                                <select class="time-dropdown" id="unfocusedValue">
+                                    <option value="1">1 min</option>
+                                    <option value="5" selected>5 mins</option>
+                                    <option value="10">10 mins</option>
+                                    <option value="30">30 mins</option>
+                                    <option value="60">1 hour</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="opt-setting-last">
+                            <div class="option">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="notifCheck">
+                                    <span class="slider"></span>
+                                </label>
+                                <p>Enable notifications</p>
+                            </div>
                         </div>
                     </div>
 
                     <!-- display theme settings -->
-                    <h2 class="settings-label">Display Theme</h2>
-                    <div class="theme-bar">
-                        <button class="theme-btn" id="light">Light</button>
-                        <button class="theme-btn" id="dark">Dark</button>
+                    <div class="setting-category">
+                        <h2 class="settings-label">Display Theme</h2>
+                        
+                        <div class="theme-bar">
+                            <button class="theme-btn" id="light">Light</button>
+                            <button class="theme-btn" id="dark">Dark</button>
+                        </div>
                     </div>
 
                     <!-- hotkey settings -->
-                    <h2 class="settings-label">Keyboard Shortcuts</h2>
-                    <div class="opt-setting">
-                        <div class="option">
-                            <p>Activate Extension</p>
+                    <div class="setting-category">
+                        <h2 class="settings-label">Keyboard Shortcuts</h2>
+                        
+                        <div class="opt-setting">
+                            <div class="option">
+                                <p>Activate Extension</p>
+                            </div>
+                            <button class="hotkey-btn" data-command="_execute_action"></button>
                         </div>
-                        <button class="hotkey-btn" data-command="_execute_action"></button>
-                    </div>
-                    <div class="opt-setting">
-                        <div class="option">
-                            <p>Toggle Extension</p>
+                        
+                        <div class="opt-setting">
+                            <div class="option">
+                                <p>Toggle Extension</p>
+                            </div>
+                            <button class="hotkey-btn" data-command="toggle-extension"></button>
                         </div>
-                        <button class="hotkey-btn" data-command="toggle-extension"></button>
-                    </div>
-                    <div class="opt-setting">
-                        <div class="option">
-                            <p>Run Optimization</p>
+                        
+                        <div class="opt-setting">
+                            <div class="option">
+                                <p>Run Optimization</p>
+                            </div>
+                            <button class="hotkey-btn" data-command="run-optimize"></button>
                         </div>
-                        <button class="hotkey-btn" data-command="run-optimize"></button>
                     </div>
                 </div>
             </div>

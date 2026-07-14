@@ -346,10 +346,19 @@ h1, h2 {
     font-weight: 600;
     color: var(--text-muted);
 }
+.setting-category {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+.setting-category:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
 .theme-bar {
     display: flex;
     gap: 6px;
-    margin: 0 0 18px 0;
 }
 .theme-btn {
     flex: 1;
@@ -364,15 +373,20 @@ h1, h2 {
 .theme-btn.active {
     border-color: var(--accent);
 }
-.opt-setting {
+.opt-setting, .opt-setting-last {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 0 10px 0;
     font-size: 14px;
 }
-.opt-setting p {
+.opt-setting p, .opt-setting-last p {
     margin-left: 6px;
+}
+.opt-setting {
+    margin: 0 0 10px 0;
+}
+.opt-setting-last {
+    margin: 0;
 }
 .option {
     display: flex;
@@ -451,7 +465,7 @@ h1, h2 {
     gap: 0;
 }
 .number-input input {
-    width: 52px;
+    width: 60px;
     padding: 7px 6px;
     text-align: center;
     border: 1px solid var(--border);
@@ -487,7 +501,7 @@ h1, h2 {
 }
 .number-input-btn button {
     flex: 1;
-    width: 24px;
+    width: 28px;
     line-height: 1;
     padding: 0;
     border: none;
@@ -503,6 +517,37 @@ h1, h2 {
 }
 .number-input-btn button:hover {
     background: var(--accent-dimmer);
+}
+
+/* dropdown button */
+.time-dropdown {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 90px;
+    padding: 7px 9px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background-color: var(--surface);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='%23E8E9EB'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+body.light-theme .time-dropdown {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='%23000000'/></svg>");
+}
+.time-dropdown:hover {
+    border-color: var(--accent);
+    background-color: var(--accent-dimmer);
+}
+.time-dropdown:focus {
+    outline: none;
+    border-color: var(--accent);
 }
 
 /* hotkey button */
