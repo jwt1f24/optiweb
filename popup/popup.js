@@ -1,3 +1,4 @@
+const stateLabel = document.getElementById("stateLabel");
 const extensionToggle = document.getElementById("extensionToggle");
 const dashboardContent = document.getElementById("dashboardContent");
 const tabListContent = document.getElementById("tabListContent");
@@ -8,6 +9,7 @@ function applyEnabledState(enabled) {
     dashboardContent.classList.toggle("disabled", !enabled);
     tabListContent.classList.toggle("disabled", !enabled);
     settingsContent.classList.toggle("disabled", !enabled);
+    stateLabel.textContent = enabled ? "Enabled" : "Disabled";
 }
 
 // update extension toggle state
@@ -448,7 +450,6 @@ numberInputButton(minuteUp, minuteDown, minuteValue, "minValue", 1);
 // discard individual tabs after set minutes event handling
 const unfocusedCheck = document.getElementById("unfocusedCheck");
 const unfocusedValue = document.getElementById("unfocusedValue");
-
 unfocusedCheck.addEventListener("change", async () => {
     await chrome.storage.local.set({ unfocusedCbox: unfocusedCheck.checked });
 });
@@ -463,24 +464,10 @@ notifCheck.addEventListener("change", async () => {
 });
 
 // hotkey settings event handling
-const hotkeyButtons = document.querySelectorAll(".hotkey-btn");
-hotkeyButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
-    });
+const hotkeyBtn = document.getElementById("hotkeyBtn");
+hotkeyBtn.addEventListener("click", () => {
+    chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
 });
-async function updateHotkeys() {
-    const commands = await chrome.commands.getAll();
-
-    hotkeyButtons.forEach(btn => {
-        const commandName = btn.dataset.command;
-        const match = commands.find(cmd => cmd.name === commandName);
-        if (match) {
-            btn.textContent = match.shortcut || "Not set";
-        }
-    });
-}
-updateHotkeys();
 
 // instantiate live view dashboard tab updates
 updateMetrics();

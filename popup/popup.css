@@ -564,12 +564,9 @@ body.light-theme .time-dropdown {
 
 /* hotkey button */
 .hotkey-btn {
-    width: 120px;
+    width: 100px;
     padding: 5px 10px;
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     border: 1px solid var(--border);
     border-radius: 6px;
     font-family: sans-serif;
