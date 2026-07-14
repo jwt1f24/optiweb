@@ -395,7 +395,7 @@ h1, h2 {
     margin-left: 6px;
 }
 .opt-setting {
-    margin: 0 0 10px 0;
+    margin: 0 0 14px 0;
 }
 .opt-setting-last {
     margin: 0;
@@ -422,6 +422,21 @@ h1, h2 {
 }
 #light:hover {
     background: #E2E4E8;
+}
+#settingsContent {
+    margin: 0 -16px 0 0;
+    padding: 0 16px 0 0;
+    overflow-y: auto;
+}
+#settingsContent::-webkit-scrollbar {
+    width: 5px;
+}
+#settingsContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+#settingsContent::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 8px;
 }
 
 /* toggle switch */
@@ -537,7 +552,7 @@ h1, h2 {
     -webkit-appearance: none;
     -moz-appearance: none;
     width: 90px;
-    padding: 7px 9px;
+    padding: 7px 10px;
     border: 1px solid var(--border);
     border-radius: 6px;
     font-family: inherit;
@@ -562,10 +577,9 @@ body.light-theme .time-dropdown {
     border-color: var(--accent);
 }
 
-/* hotkey button */
-.hotkey-btn {
-    width: 100px;
-    padding: 5px 10px;
+/* hotkey button & advanced settings buttons */
+.hotkey-btn, .adv-btn {
+    padding: 7px 10px;
     text-align: center;
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -576,9 +590,15 @@ body.light-theme .time-dropdown {
     cursor: pointer;
     transition: border-color 0.2s ease, background 0.2s ease;
 }
-.hotkey-btn:hover {
+.hotkey-btn:hover, .adv-btn:hover {
     border-color: var(--accent);
     background: var(--accent-dimmer);
+}
+.hotkey-btn {
+    width: 100px;
+}
+.adv-btn {
+    width: 120px;
 }
 
 /* disabled content effect */

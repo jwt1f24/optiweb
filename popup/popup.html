@@ -70,16 +70,18 @@
             <!-- tab list section -->
             <div class="section" id="tabList">
                 <div class="content-container" id="tabListContent">
-                    <!-- secondary navbar for all tabs & whitelist sections -->
+                    <!-- secondary navbar for list navigation -->
                     <div class="list-navbar">
                         <button class="list-nav-btn active" data-target="allTabsView">All Tabs</button>
                         <button class="list-nav-btn" data-target="whitelistView">Whitelist</button>
                     </div>
 
-                    <!-- list containers -->
+                    <!-- all tabs list container -->
                     <div class="list-container" id="allTabsView">
                         <div id="listTabs"></div>
                     </div>
+
+                    <!-- whitelist container -->
                     <div class="list-container" id="whitelistView">
                         <div class="domain-input" id="domainInput">
                             <input type="text" id="domainField" placeholder="e.g. www.google.com"/>
@@ -97,6 +99,7 @@
                     <div class="setting-category">                       
                         <h2 class="settings-label">Optimization Settings</h2>
                         
+                        <!-- optimize per time interval -->
                         <div class="opt-setting">
                             <div class="option">
                                 <label class="toggle-switch">
@@ -113,7 +116,8 @@
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <!-- discard after set time -->
                         <div class="opt-setting">
                             <div class="option">
                                 <label class="toggle-switch">
@@ -132,7 +136,8 @@
                                 </select>
                             </div>
                         </div>
-                        
+
+                        <!-- notifications -->
                         <div class="opt-setting-last">
                             <div class="option">
                                 <label class="toggle-switch">
@@ -146,8 +151,7 @@
 
                     <!-- display theme settings -->
                     <div class="setting-category">
-                        <h2 class="settings-label">Display Theme</h2>
-                        
+                        <h2 class="settings-label">Display Theme</h2>                      
                         <div class="theme-bar">
                             <button class="theme-btn" id="light">Light</button>
                             <button class="theme-btn" id="dark">Dark</button>
@@ -156,13 +160,41 @@
 
                     <!-- hotkey settings -->
                     <div class="setting-category">
-                        <h2 class="settings-label">Hotkeys</h2>
-                        
-                        <div class="opt-setting">
+                        <h2 class="settings-label">Hotkeys</h2>                      
+                        <div class="opt-setting-last">
                             <div class="option">
                                 <p>Manage keyboard shortcuts</p>
                             </div>
                             <button class="hotkey-btn" id="hotkeyBtn">View</button>
+                        </div>
+                    </div>
+
+                    <!-- advanced settings -->
+                    <div class="setting-category">
+                        <h2 class="settings-label">Advanced Settings</h2>
+                        
+                        <!-- import settings -->
+                        <div class="opt-setting">
+                            <div class="option">
+                                <p>Load settings from JSON file</p>
+                            </div>
+                            <button class="adv-btn" id="importBtn">Import Settings</button>
+                        </div>
+
+                        <!-- export settings -->
+                        <div class="opt-setting">
+                            <div class="option">
+                                <p>Save settings to a JSON file</p>
+                            </div>
+                            <button class="adv-btn" id="exportBtn">Export Settings</button>
+                        </div>
+
+                        <!-- reset settings -->
+                        <div class="opt-setting">
+                            <div class="option">
+                                <p>Reset settings to defaults</p>
+                            </div>
+                            <button class="adv-btn" id="resetBtn">Reset Settings</button>
                         </div>
                     </div>
                 </div>
