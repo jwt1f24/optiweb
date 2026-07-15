@@ -136,6 +136,25 @@ async function updateMetrics() {
     }
 }
 
+// dashboard section event handling
+const optBtn = document.getElementById("optBtn");
+const dashboard = document.getElementById("dashboard");
+optBtn.addEventListener("click", async () => {
+    document.body.classList.add("loading"); 
+    optBtn.disabled = true;
+    await optimize();
+    updateMetrics();
+    document.body.classList.remove("loading");
+    optBtn.disabled = false;
+});
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        if (dashboard.style.display !== "none") {
+            optBtn.click();
+        }
+    }
+});
+
 // scrollbar effect when tab list content overflows
 async function scrollbar(container) {
     if (container.scrollHeight > container.clientHeight) {
@@ -300,6 +319,16 @@ async function addToWhitelist() {
     domainField.value = "";
 }
 
+// whitelist section event handling
+const domainBtn = document.getElementById("domainBtn");
+const domainField = document.getElementById("domainField");
+domainBtn.addEventListener("click", addToWhitelist);
+domainField.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addToWhitelist();
+    }
+});
+
 // settings checkbox value storing
 async function checkboxSettings() {
     const savedSettings = await chrome.storage.local.get({ 
@@ -315,67 +344,8 @@ async function checkboxSettings() {
     unfocusedValue.value = savedSettings.unfocusedValue;
     notifCheck.checked = savedSettings.notifCbox;
 
-    updateHotkeys();
+    scrollbar(document.getElementById("settingsContent"));
 }
-
-// dashboard section event handling
-const optBtn = document.getElementById("optBtn");
-optBtn.addEventListener("click", async () => {
-    document.body.classList.add("loading"); 
-    optBtn.disabled = true;
-    await optimize();
-    updateMetrics();
-    document.body.classList.remove("loading");
-    optBtn.disabled = false;
-});
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        const dashboard = document.getElementById("dashboard");
-        if (dashboard.style.display !== "none") {
-            optBtn.click();
-        }
-    }
-});
-
-// whitelist section event handling
-const domainBtn = document.getElementById("domainBtn");
-const domainField = document.getElementById("domainField");
-domainBtn.addEventListener("click", addToWhitelist);
-domainField.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        addToWhitelist();
-    }
-});
-
-// display theme setting
-const darkBtn = document.getElementById("dark");
-const lightBtn = document.getElementById("light");
-
-function setTheme(theme) {
-    if (theme === "light") {
-        document.body.classList.add("light-theme");
-        lightBtn.classList.add("active");
-        darkBtn.classList.remove("active");
-    } else {
-        document.body.classList.remove("light-theme");
-        darkBtn.classList.add("active");
-        lightBtn.classList.remove("active");
-    }
-}
-async function restoreTheme() {
-    const saved = await chrome.storage.local.get({ theme: "dark" });
-    setTheme(saved.theme);
-}
-
-darkBtn.addEventListener("click", async () => {
-    setTheme("dark");
-    await chrome.storage.local.set({ theme: "dark" });
-});
-lightBtn.addEventListener("click", async () => {
-    setTheme("light");
-    await chrome.storage.local.set({ theme: "light" });
-});
-restoreTheme();
 
 // number input event handling
 function numberInput(input, key, defaultVal) {
@@ -463,11 +433,101 @@ notifCheck.addEventListener("change", async () => {
     await chrome.storage.local.set({ notifCbox: notifCheck.checked });
 });
 
+// display theme setting
+const darkBtn = document.getElementById("dark");
+const lightBtn = document.getElementById("light");
+function setTheme(theme) {
+    if (theme === "light") {
+        document.body.classList.add("light-theme");
+        lightBtn.classList.add("active");
+        darkBtn.classList.remove("active");
+    } else {
+        document.body.classList.remove("light-theme");
+        darkBtn.classList.add("active");
+        lightBtn.classList.remove("active");
+    }
+}
+async function restoreTheme() {
+    const saved = await chrome.storage.local.get({ theme: "dark" });
+    setTheme(saved.theme);
+}
+darkBtn.addEventListener("click", async () => {
+    setTheme("dark");
+    await chrome.storage.local.set({ theme: "dark" });
+});
+lightBtn.addEventListener("click", async () => {
+    setTheme("light");
+    await chrome.storage.local.set({ theme: "light" });
+});
+// fetch theme setting stored in local storage
+restoreTheme();
+
 // hotkey settings event handling
 const hotkeyBtn = document.getElementById("hotkeyBtn");
 hotkeyBtn.addEventListener("click", () => {
     chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
 });
+
+// advanced settings event handling
+const importBtn = document.getElementById("importBtn");
+const exportBtn = document.getElementById("exportBtn");
+const resetBtn = document.getElementById("resetBtn");
+const importFile = document.getElementById("importFile");
+const backup = [
+    "whitelist",
+    "minCbox",
+    "minValue",
+    "unfocusedCbox",
+    "unfocusedValue",
+    "notifCbox",
+    "theme",
+    "extensionEnabled"
+];
+const defaultSettings = {
+    whitelist: [],
+    minCbox: false,
+    minValue: 1,
+    unfocusedCbox: false,
+    unfocusedValue: 5,
+    notifCbox: false,
+    theme: "dark",
+    extensionEnabled: true
+};
+
+importFile.addEventListener("change", async () => {
+    const file = importFile.files[0];
+    if (!file) {
+        return;
+    }
+    try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        await chrome.storage.local.set(data);
+        location.reload();
+    } catch (err) {
+        console.error("Failed to import settings:", err);
+    }
+});
+
+importBtn.addEventListener("click", () => {
+    importFile.click();
+}); 
+
+exportBtn.addEventListener("click", async () => {
+    const data = await chrome.storage.local.get(backup);
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    chrome.downloads.download({ url, filename: "optiweb-backup.json" });
+}); 
+
+resetBtn.addEventListener("click", async () => {
+    const confirmed = confirm("Reset all settings to their defaults?");
+    if (!confirmed) {
+        return;
+    }
+    await chrome.storage.local.set(defaultSettings);
+    location.reload();
+}); 
 
 // instantiate live view dashboard tab updates
 updateMetrics();
