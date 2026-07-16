@@ -256,12 +256,12 @@ async function displayWhitelist() {
                     const newDomain = normalizeDomain(input.value);
                     const pattern = /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/;
                     if (pattern.test(newDomain) && newDomain !== domain) {
-                        whitelist = whitelist.filter(item => item !== domain);
                         if (!whitelist.includes(newDomain)) {
-                            whitelist.push(newDomain);
+                            const index = whitelist.indexOf(domain);
+                            whitelist[index] = newDomain;
+                            await chrome.storage.local.set({ whitelist: whitelist });
+                            displayWhitelist();
                         }
-                        await chrome.storage.local.set({ whitelist: whitelist });
-                        displayWhitelist();
                     } else {
                         // revert if invalid or unchanged
                         displayWhitelist(); 
@@ -269,8 +269,12 @@ async function displayWhitelist() {
                 };
 
                 input.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter") saveEdit();
-                    if (e.key === "Escape") displayWhitelist();
+                    if (e.key === "Enter") {
+                        saveEdit();
+                    }
+                    if (e.key === "Escape") {
+                        displayWhitelist();
+                    }
                 });
                 input.addEventListener("blur", saveEdit);
             });
@@ -308,13 +312,9 @@ async function addToWhitelist() {
     if (validFormat) {
         if (!whitelist.includes(input)) {
             whitelist.push(input);
-        } else {
-            console.error(`Domain '${input}' already exists in whitelist`);
         }
         await chrome.storage.local.set({ whitelist: whitelist });
         displayWhitelist();
-    } else {
-        console.error(`Invalid domain format: ${input}`);
     }
     domainField.value = "";
 }

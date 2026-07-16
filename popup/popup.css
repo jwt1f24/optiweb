@@ -80,7 +80,7 @@ h1, h2 {
     position: relative;
     display: flex;
     gap: 6px;
-    padding: 3px;
+    padding: 4px;
     margin: 0 0 16px 0;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -152,12 +152,12 @@ h1, h2 {
 }
 .opt-btn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin-top: auto;
     border: none;
     border-radius: 8px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--bg);
     background: var(--accent);
@@ -331,7 +331,7 @@ h1, h2 {
     flex: 3;
     min-width: 0;
     padding: 9px 11px;
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: 6px;
     font-family: inherit;
     font-size: 14px;
@@ -345,7 +345,7 @@ h1, h2 {
 #domainBtn {
     flex: 1;
     padding: 9px 8px;
-    border: 1px solid var(--accent);
+    border: 2px solid var(--accent);
     border-radius: 6px;
     font-size: 14px;
     font-weight: 500;
