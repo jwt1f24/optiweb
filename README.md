@@ -37,13 +37,13 @@ I built this extension to allow users that frequently open many tabs to be able 
 | :---------------------------------------------------: | :--------------------------------------------------: |
 | **Dashboard** — displays memory usage and tab metrics | **Dark mode** — a theme thats friendlier to the eyes |
 
-| ![Tab list](/images/screenshots/tab-list.png) |     ![Whitelist](/images/screenshots/whitelist.png)     |
-| :-------------------------------------------: | :-----------------------------------------------------: |
-|    **Tab list** — displays all opened tabs    | **Whitelist** — saved domains protected from discarding |
+| ![Tab list](/images/screenshots/tab-list.png) | ![Whitelist](/images/screenshots/whitelist.png) |
+| :-------------------------------------------: | :---------------------------------------------: |
+|    **Tab list** — displays all opened tabs    |  **Whitelist** — protect sites from discarding  |
 
-|   ![Settings](/images/screenshots/settings-1.png)    |          ![Advanced Settings](/images/screenshots/settings-2.png)           |
-| :--------------------------------------------------: | :-------------------------------------------------------------------------: |
-| **Settings** — automation, notifications, and themes | **Advanced Settings** — keyboard shortcuts & settings backup via JSON files |
+|   ![Settings](/images/screenshots/settings-1.png)    | ![Advanced Settings](/images/screenshots/settings-2.png) |
+| :--------------------------------------------------: | :------------------------------------------------------: |
+| **Settings** — automation, notifications, and themes |   **Settings** — keyboard shortcuts & settings backup    |
 
 ## Pre-requisites
 
