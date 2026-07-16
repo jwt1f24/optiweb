@@ -33,9 +33,9 @@ I built this extension to allow users that frequently open many tabs to be able 
 
 ## Screenshots
 
-|   ![Dashboard](/images/screenshots/dashboard.png)   | ![Dark Mode](/images/screenshots/dashboard-dark.png) |
-| :-------------------------------------------------: | :--------------------------------------------------: |
-| **Dashboard** — displays memory usage & tab metrics |     **Dark mode** — a theme friendly to the eyes     |
+| ![Dashboard](/images/screenshots/dashboard.png) | ![Dark Mode](/images/screenshots/dashboard-dark.png) |
+| :---------------------------------------------: | :--------------------------------------------------: |
+|   **Dashboard** — memory usage & tab metrics    |     **Dark mode** — a theme friendly to the eyes     |
 
 | ![Tab list](/images/screenshots/tab-list.png) | ![Whitelist](/images/screenshots/whitelist.png) |
 | :-------------------------------------------: | :---------------------------------------------: |
