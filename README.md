@@ -22,7 +22,8 @@ OptiWeb is a Chrome extension developed with the aim of optimizing browser perfo
 
 ## Why I built this
 
-Web browsers consume a lot of memory, and memory usage grows for each tab opened, slowing down performance. I built this extension to allow users that frequently open many tabs to be able to simply freeze tabs they do not actively use, while saving memory and retaining site data if they were to open them again.
+Web browsers consume a lot of memory, and memory usage grows for each tab opened, slowing down performance.
+I built this extension to allow users that frequently open many tabs to be able to simply freeze tabs they do not actively use, while saving memory and retaining site data if they were to open them again.
 
 ## Technical highlights
 
@@ -32,21 +33,17 @@ Web browsers consume a lot of memory, and memory usage grows for each tab opened
 
 ## Screenshots
 
-|   ![Dashboard](/images/screenshots/dashboard.png)   |             ![Optimized Dashboard](/images/screenshots/dashboard-cleaned.png)              |
-| :-------------------------------------------------: | :----------------------------------------------------------------------------------------: |
-| **Dashboard** — memory usage and opened tab metrics | **Optimize Function** — discarded all tabs while ignoring focused, audible and pinned tabs |
+|    ![Dashboard](/images/screenshots/dashboard.png)    | ![Dark Mode](/images/screenshots/dashboard-dark.png) |
+| :---------------------------------------------------: | :--------------------------------------------------: |
+| **Dashboard** — displays memory usage and tab metrics | **Dark mode** — a theme thats friendlier to the eyes |
 
-|      ![Whitelist](/images/screenshots/all-tabs.png)      | ![Whitelist Edit](/images/screenshots/whitelist-input.png) |
-| :------------------------------------------------------: | :--------------------------------------------------------: |
-| **Whitelist** — saved domains, protected from discarding |    **Editing a domain** — inline edit with save/cancel     |
+| ![Tab list](/images/screenshots/tab-list.png) |     ![Whitelist](/images/screenshots/whitelist.png)     |
+| :-------------------------------------------: | :-----------------------------------------------------: |
+|    **Tab list** — displays all opened tabs    | **Whitelist** — saved domains protected from discarding |
 
-|   ![Settings](/images/screenshots/settings-1.png)    |           ![Advanced Settings](/images/screenshots/settings-2.png)            |
-| :--------------------------------------------------: | :---------------------------------------------------------------------------: |
-| **Settings** — automation, notifications, and themes | **Advanced Settings** — keyboard shortcuts and settings saving via JSON files |
-
-| ![Dark Mode](/images/screenshots/dashboard-dark.png) | ![Light Mode](/images/screenshots/dashboard.png) |
-| :--------------------------------------------------: | :----------------------------------------------: |
-|                    **Dark theme**                    |                 **Light theme**                  |
+|   ![Settings](/images/screenshots/settings-1.png)    |          ![Advanced Settings](/images/screenshots/settings-2.png)           |
+| :--------------------------------------------------: | :-------------------------------------------------------------------------: |
+| **Settings** — automation, notifications, and themes | **Advanced Settings** — keyboard shortcuts & settings backup via JSON files |
 
 ## Pre-requisites
 
