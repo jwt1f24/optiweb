@@ -4,17 +4,17 @@ OptiWeb is a Chrome extension developed with the aim of optimizing browser perfo
 
 ## Built with
 
-- HTML - Popup UI layout
-- CSS - Visual design structure & theming
-- JavaScript - Extension logic & background service worker
-- Manifest V3 - Chrome Extension API
+- **HTML** - Popup UI layout
+- **CSS** - Visual design structure & theming
+- **JavaScript** - Extension logic & background service worker
+- **Manifest V3** - Chrome Extension API
 
 ## Features
 
-- Dashboard displaying memory usage and tab metrics
+- Dashboard displaying memory and tab metrics
 - Button to discard inactive tabs once clicked
 - Tab list displaying all opened tabs
-- Whitelist that protects specific sites from being discarded
+- Whitelist selecting sites from being discarded
 - Automated optimization settings
 - Dark & light theme
 - Custom keyboard shortcuts
@@ -45,7 +45,7 @@ I built this extension to allow users that frequently open many tabs to be able 
 | :--------------------------------------------------: | :------------------------------------------------------: |
 | **Settings** — automation, notifications, and themes |   **Settings** — keyboard shortcuts & settings backup    |
 
-## Pre-requisites
+## Prerequisites
 
 Before installing, please ensure that you are using a Chromium web browser (e.g. Google Chrome, Microsoft Edge)
 
