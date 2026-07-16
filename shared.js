@@ -8,8 +8,8 @@ async function optimize() {
     const saved = await chrome.storage.local.get({ whitelist: [] });
     const whitelist = saved.whitelist;
     const inactiveTabs = await chrome.tabs.query({ active: false, discarded: false, audible:false, pinned: false });
-    const memBefore = await chrome.system.memory.getInfo();
     let discardCount = 0;
+    
     for (const tab of inactiveTabs) {
         if (!tab.id) {
             continue;
@@ -25,19 +25,16 @@ async function optimize() {
         }
     }
 
-    // if settings enabled, send a notification after optimizing is triggered
+    // if settings enabled, configure & send a notification after optimizing
     await new Promise(res => setTimeout(res, 1000));
-    const memAfter = await chrome.system.memory.getInfo();
-    const memSaved = Math.max(0, ((memAfter.availableCapacity - memBefore.availableCapacity) / (1024 ** 2))).toFixed(1);
     const notifSaved = await chrome.storage.local.get({ notifCbox: false });
 
-    // configure notification content
     if (notifSaved.notifCbox) {
         chrome.notifications.create({
             type: "basic",
             iconUrl: "/images/icon128.png",
             title: "Web Browser Optimized",
-            message: `${discardCount} tabs have been discarded, ${memSaved} MB of memory has been saved.`
+            message: `${discardCount} tabs have been discarded.`
         });
     }
 }
