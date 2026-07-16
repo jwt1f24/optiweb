@@ -33,17 +33,18 @@ I built this extension to allow users that frequently open many tabs to be able 
 
 ## Screenshots
 
-|    ![Dashboard](/images/screenshots/dashboard.png)    | ![Dark Mode](/images/screenshots/dashboard-dark.png) |
-| :---------------------------------------------------: | :--------------------------------------------------: |
-| **Dashboard** — displays memory usage and tab metrics | **Dark mode** — a theme thats friendlier to the eyes |
+|                                                                             |                                                                                  |
+| :-------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
+| <img src="images/screenshots/dashboard.png" height="280" alt="Dashboard" /> | <img src="images/screenshots/dashboard-dark.png" height="280" alt="Dark Mode" /> |
+|            **Dashboard** — displays memory usage and tab metrics            |              **Dark mode** — a theme that's friendlier to the eyes               |
 
-| ![Tab list](/images/screenshots/tab-list.png) |     ![Whitelist](/images/screenshots/whitelist.png)     |
-| :-------------------------------------------: | :-----------------------------------------------------: |
-|    **Tab list** — displays all opened tabs    | **Whitelist** — saved domains protected from discarding |
+| <img src="images/screenshots/tab-list.png" height="280" alt="Tab list" /> | <img src="images/screenshots/whitelist.png" height="280" alt="Whitelist" /> |
+| :-----------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
+|                  **Tab list** — displays all opened tabs                  |           **Whitelist** — saved domains protected from discarding           |
 
-|   ![Settings](/images/screenshots/settings-1.png)    |          ![Advanced Settings](/images/screenshots/settings-2.png)           |
-| :--------------------------------------------------: | :-------------------------------------------------------------------------: |
-| **Settings** — automation, notifications, and themes | **Advanced Settings** — keyboard shortcuts & settings backup via JSON files |
+| <img src="images/screenshots/settings-1.png" height="280" alt="Settings" /> | <img src="images/screenshots/settings-2.png" height="280" alt="Advanced Settings" /> |
+| :-------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: |
+|            **Settings** — automation, notifications, and themes             |     **Advanced Settings** — keyboard shortcuts & settings backup via JSON files      |
 
 ## Pre-requisites
 
