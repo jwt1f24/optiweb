@@ -2,11 +2,14 @@
 
 OptiWeb is a Chrome extension developed with the aim of optimizing browser performance by automatically discarding inactive tabs to free up memory space. The more tabs opened, the more impactful OptiWeb becomes!
 
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-orange?style=flat-square&logo=googlechrome&logoColor=white)
+
 ## Project Demo
 
-<a href="https://youtu.be/HrUBDXlFT-E">
-  <img src="https://markdown-videos-api.jorgenkh.no/youtube/HrUBDXlFT-E?type=maxresdefault" alt="Watch the OptiWeb Demo" width="600" style="max-width: 100%; border-radius: 8px;" />
-</a>
+[![Watch the OptiWeb Demo](https://img.youtube.com/vi/HrUBDXlFT-E/0.jpg)](https://youtu.be/HrUBDXlFT-E)
 
 ## Built with
 
