@@ -177,6 +177,12 @@ async function displayList() {
         try {
             const domain = normalizeDomain(new URL(tab.url).hostname);
             const div = document.createElement("div");
+
+            // alter style if tab is discarded
+            if (tab.discarded) {
+                div.classList.add("discarded-tab");
+            }
+
             const tabName = document.createElement("h4");
             const rightGroup = document.createElement("div");
             const url = document.createElement("p");
