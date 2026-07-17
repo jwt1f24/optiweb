@@ -60,8 +60,9 @@ Before installing, please ensure that you are using a Chromium web browser (e.g.
 
 ## How to install
 
-1. Clone the repository or download & extract the project ZIP file
-2. Navigate to the **`chrome://extensions/`** page
-3. Enable **`Developer mode`** on the top right corner of the page
-4. Click on **`Load unpacked`** on the top left corner of the page
-5. Select the root project folder **`optiweb`** containing **`manifest.json`**
+1. Clone the repository via **`git clone https://github.com/jwt1f24/optiweb.git`**
+2. Alternatively, click the green button **`Code`** to download & extract ZIP
+3. Navigate to the **`chrome://extensions/`** page
+4. Enable **`Developer mode`** on the top right corner of the page
+5. Click on **`Load unpacked`** on the top left corner of the page
+6. Select the root project folder **`optiweb-main`** containing **`manifest.json`**
