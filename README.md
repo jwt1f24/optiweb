@@ -4,7 +4,9 @@ OptiWeb is a Chrome extension developed with the aim of optimizing browser perfo
 
 ## Project Demo
 
-[![Watch the OptiWeb Demo](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2FHrUBDXlFT-E)](https://youtu.be/HrUBDXlFT-E)
+<a href="https://youtu.be/HrUBDXlFT-E">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/HrUBDXlFT-E?type=maxresdefault" alt="Watch the OptiWeb Demo" width="600" style="max-width: 100%; border-radius: 8px;" />
+</a>
 
 ## Built with
 
