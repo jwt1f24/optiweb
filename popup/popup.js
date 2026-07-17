@@ -438,17 +438,17 @@ const darkBtn = document.getElementById("dark");
 const lightBtn = document.getElementById("light");
 function setTheme(theme) {
     if (theme === "light") {
-        document.body.classList.add("light-theme");
+        document.body.classList.remove("dark-theme");
         lightBtn.classList.add("active");
         darkBtn.classList.remove("active");
     } else {
-        document.body.classList.remove("light-theme");
+        document.body.classList.add("dark-theme");
         darkBtn.classList.add("active");
         lightBtn.classList.remove("active");
     }
 }
 async function restoreTheme() {
-    const saved = await chrome.storage.local.get({ theme: "dark" });
+    const saved = await chrome.storage.local.get({ theme: "light" });
     setTheme(saved.theme);
 }
 darkBtn.addEventListener("click", async () => {
@@ -490,7 +490,7 @@ const defaultSettings = {
     unfocusedCbox: false,
     unfocusedValue: 5,
     notifCbox: false,
-    theme: "dark",
+    theme: "light",
     extensionEnabled: true
 };
 

@@ -1,16 +1,5 @@
 /* theme tokens */
 :root {
-    --bg: #222732;
-    --surface: #2f3541;
-    --border: #5b6069;
-    --text: #ffffff;
-    --text-muted: #e0e0e0;
-    --accent: #3ecfff;
-    --accent-dim: #42b5db;
-    --accent-dimmer: #204856;
-    --danger: #FF6B6B;
-}
-body.light-theme {
     --bg: #F5F6F8;
     --surface: #FFFFFF;
     --border: #C4C9D1;
@@ -19,6 +8,17 @@ body.light-theme {
     --accent: #0095ff;
     --accent-dim: #0083e1;
     --accent-dimmer: #e0eff8;
+    --danger: #FF6B6B;
+}
+body.dark-theme {
+    --bg: #222732;
+    --surface: #2f3541;
+    --border: #5b6069;
+    --text: #ffffff;
+    --text-muted: #e0e0e0;
+    --accent: #3ecfff;
+    --accent-dim: #42b5db;
+    --accent-dimmer: #204856;
 }
 
 /* main */
@@ -566,14 +566,14 @@ h1, h2 {
     font-size: 14px;
     color: var(--text);
     background-color: var(--surface);
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='%23E8E9EB'/></svg>");
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0L5 6L10 0Z' fill='%23333333'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;
     cursor: pointer;
     transition: border-color 0.2s ease, background-color 0.2s ease;
 }
-body.light-theme .time-dropdown {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0L5 6L10 0Z' fill='%23000000'/></svg>");
+body.dark-theme .time-dropdown {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0L5 6L10 0Z' fill='%23E8E9EB'/%3E%3C/svg%3E");
 }
 .time-dropdown:hover {
     border-color: var(--accent);
